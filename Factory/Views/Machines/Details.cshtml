@@ -1,0 +1,38 @@
+@{
+  Layout = "_Layout";
+}
+
+@model Factory.Models.Machine
+
+<h1>Machine Details</h1>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>
+        Machine Model
+      </th>
+      <th>
+        Engineers
+      </th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+        @Html.DisplayFor(model => model.Model)
+      </td>
+      <td>
+        @foreach(var join in Model.JoinEngineerMachine)
+          {
+            <li>@join.Engineer.Name</li>
+          }
+      </td>
+      <td>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.MachineId }) |
+        @Html.ActionLink("Delete", "Delete", new { id = Model.MachineId })
+      </td>
+    </tr>
+  </tbody>
+</table>

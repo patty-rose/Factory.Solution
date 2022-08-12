@@ -1,0 +1,55 @@
+@{
+  Layout = "_Layout";
+}
+
+@using Factory.Models;
+@using System;
+@model List<Factory.Models.Machine>;
+
+<h1>Machines</h1>
+
+@if (@Model.Count == 0)
+{
+  <h3>No machines have been added yet!</h3>
+} 
+
+<table class="table">
+  <thead>
+    <tr>
+      <th>
+        Model
+      </th>
+      <th>
+        Assigned Engineers
+      </th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+  @foreach(Machine machine in Model)
+  {
+    <tr>
+        <td>
+          @Html.DisplayFor(modelMachine => machine.Model)
+        </td>
+        <td>
+          <ul>
+            @foreach(var join in machine.JoinEngineerMachine)
+            {
+              <li>@join.Engineer.Name</li>
+            }
+          </ul>
+        </td>
+        <td>
+          @Html.ActionLink("Details", "Details", new { id = machine.MachineId }) |
+          @Html.ActionLink("Edit", "Edit", new { id = machine.MachineId }) | 
+          @Html.ActionLink("Delete", "Delete", new { id = machine.MachineId })
+        </td>
+      </tr>
+    }
+  </tbody>
+</table>
+
+<hr />
+<p>@Html.ActionLink("Add new machine", "Create")</p>
+<p>@Html.ActionLink("Home", "Index", "Home")</p>

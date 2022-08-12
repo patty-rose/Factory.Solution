@@ -1,0 +1,21 @@
+@{
+  Layout = "_Layout";
+}
+
+@using System.Collections.Generic;
+@using Factory.Models;
+@model Factory.Models.Engineer
+
+<h4>Add a new engineer</h4>
+@using (Html.BeginForm())
+{
+  @Html.LabelFor(model => model.Name)
+  @Html.TextBoxFor(model => model.Name)
+
+  @Html.Label("Select Machine Specialty")
+  @Html.DropDownList("MachineId")
+
+  <input type="submit" value="Add new Engineer"/>
+}
+<hr />
+<p>@Html.ActionLink("Show all Angineers", "Index")</p>
