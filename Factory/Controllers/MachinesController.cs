@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Factory.Models;
@@ -79,14 +80,28 @@ namespace Factory.Controllers
     }
 
     [HttpPost]
-    public ActionResult AddEngineer(Machine machine, int EngineerId)
+    public ActionResult AddEngineer(Machine machine, string engineers)
     {
-      if (EngineerId != 0)
-      {
-        _db.EngineerMachine.Add(new EngineerMachine() { EngineerId = EngineerId, MachineId = machine.MachineId });
-        _db.SaveChanges();
+      string[] engineerStrs = engineers.ToString().Split(",");
+
+      ViewBag.engine = engineerStrs;
+
+      foreach(var engineerId in engineerStrs)
+      { 
+        int engineerIdInt = Int32.Parse(engineerId);
+        if (engineerIdInt != 0)
+        {
+
+          _db.EngineerMachine.Add(new EngineerMachine() { EngineerId = engineerIdInt, MachineId = machine.MachineId });
+          _db.SaveChanges();
+        }
       }
-      return RedirectToAction("Index");
+      // if (EngineerId != 0)
+      // {
+      //   _db.EngineerMachine.Add(new EngineerMachine() { EngineerId = EngineerId, MachineId = machine.MachineId });
+      //   _db.SaveChanges();
+      // }
+      return View(machine.MachineId);
     }
 
 
