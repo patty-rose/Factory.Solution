@@ -20,7 +20,7 @@
         Name
       </th>
       <th>
-        Machines Specialized to repair
+        Machine Specializations
       </th>
       <th></th>
     </tr>
@@ -33,12 +33,15 @@
           @Html.DisplayFor(modelEngineer => engineer.Name)
         </td>
         <td>
-          @foreach(var join in engineer.JoinEngineerMachine)
-          {
-            @join.Machine.Model
-          }
+          <ul>
+            @foreach(var join in engineer.JoinEngineerMachine)
+            {
+              <li>@join.Machine.Model</li>
+            }
+          </ul>
         </td>
         <td>
+          @Html.ActionLink("Add Machine Specialties", "AddMachine", new { id = engineer.EngineerId }) |
           @Html.ActionLink("Details", "Details", new { id = engineer.EngineerId }) |
           @Html.ActionLink("Edit", "Edit", new { id = engineer.EngineerId }) | 
           @Html.ActionLink("Delete", "Delete", new { id = engineer.EngineerId })

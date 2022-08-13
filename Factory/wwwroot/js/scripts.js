@@ -10,6 +10,6 @@ $(document).ready(function() {
     e.preventDefault();
     markCompleted(e.target);
 
-    
+  
   });
 });
