@@ -41,6 +41,7 @@
           </ul>
         </td>
         <td>
+          @Html.ActionLink("Add engineer", "AddEngineer", new { id = machine.MachineId }) |
           @Html.ActionLink("Details", "Details", new { id = machine.MachineId }) |
           @Html.ActionLink("Edit", "Edit", new { id = machine.MachineId }) | 
           @Html.ActionLink("Delete", "Delete", new { id = machine.MachineId })
