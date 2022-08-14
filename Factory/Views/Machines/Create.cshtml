@@ -12,8 +12,23 @@
   @Html.LabelFor(model => model.Model)
   @Html.TextBoxFor(model => model.Model)
 
-  @Html.Label("Select Engineer")
-  @Html.DropDownList("EngineerId")
+  int counter = 0;
+  foreach(var x in ViewBag.EngineerId){
+    counter++;
+    break;
+  }
+  if (counter>0)
+  {
+    @Html.Label("Select Engineer")
+    @Html.DropDownList("EngineerId")
+  }
+  else
+  {
+    <p>No engineers have been added yet. You will need to add engineers to assign machine specializations.</p>
+  }
+
+
+  
 
   <input type="submit" value="Add new Machine"/>
 }

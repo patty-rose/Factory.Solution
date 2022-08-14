@@ -60,3 +60,8 @@ body {
   white-space: nowrap;
   line-height: 60px;
 }
+
+.bg{
+  width: 50%;
+  height: auto;
+}

@@ -80,30 +80,15 @@ namespace Factory.Controllers
     }
 
     [HttpPost]
-    public ActionResult AddEngineer(Machine machine, string engineers)
+    public ActionResult AddEngineer(Machine machine, int EngineerId)
     {
-      string[] engineerStrs = engineers.ToString().Split(",");
-
-      ViewBag.engine = engineerStrs;
-
-      foreach(var engineerId in engineerStrs)
-      { 
-        int engineerIdInt = Int32.Parse(engineerId);
-        if (engineerIdInt != 0)
-        {
-
-          _db.EngineerMachine.Add(new EngineerMachine() { EngineerId = engineerIdInt, MachineId = machine.MachineId });
-          _db.SaveChanges();
-        }
+      if (EngineerId != 0)
+      {
+        _db.EngineerMachine.Add(new EngineerMachine() { MachineId = machine.MachineId, EngineerId = EngineerId });
+        _db.SaveChanges();
       }
-      // if (EngineerId != 0)
-      // {
-      //   _db.EngineerMachine.Add(new EngineerMachine() { EngineerId = EngineerId, MachineId = machine.MachineId });
-      //   _db.SaveChanges();
-      // }
-      return View(machine.MachineId);
+      return RedirectToAction("Index");
     }
-
 
     public ActionResult Delete(int id)
     {
