@@ -23,15 +23,17 @@ _A c# website where you can manage engineers and machines for a factory. You can
 
 * Clone this repository to your desktop
 * Open your terminal and navigate to the top of this directory
-* Open MySqlWorkbench and import the database patty_otero from this repository into your worbench
-* create a file called appsettings.json within the HairSalon folder
+* create a file called appsettings.json within the main project folder
 * add the following text to the file inserting your own DATABASE NAME, USER ID, and PASSWORD: {
   "ConnectionStrings": {
       "DefaultConnection": "Server=localhost;Port=3306;database=[DATABASE NAME HERE];uid=[USER ID HERE];pwd=[PASSWORD HERE];"
   }
 }
-* in the terminal enter the command: $dotnet build
-* To run the application in the terminal navigate to the top of the HairSalon folder and enter: >dotnet run
+* Navigate to ~/Factory in your terminal.
+* Run the following commands:
+>dotnet ef database update
+>dotnet build
+>dotnet run
 * Use the localhost url with your web-browser to view the site
 
 ## Known Bugs

@@ -1,26 +1,18 @@
 @{
   Layout = "_Layout";
 }
-
 @model Factory.Models.Machine
-
-<h2>Add an engineer</h2>
-
-<h4>Add an engineer to this machine: @Html.DisplayFor(model => model.Model)</h4>
+<h1>Assign an Engineer</h1>
+<h4>@Html.Label("Machine:")  @Html.DisplayFor(model => model.Model)</h4>
 
 @using (Html.BeginForm())
 {
     @Html.HiddenFor(model => model.MachineId)
-
     @Html.Label("Select Engineer")
     @Html.DropDownList("EngineerId")
-
     if(ViewBag.Duplicate == 1)
     {
       <h5 class="error">The entry you submitted already exists. Try again with a unique entry.</h5>
     }
-
     <input type="submit" value="Save" />
 }
-
-<p>@Html.ActionLink("Back to list", "Index")</p>

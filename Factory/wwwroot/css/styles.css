@@ -53,17 +53,13 @@ html {
 body {
   margin-bottom: 60px;
 }
+
 .footer {
   position: absolute;
   bottom: 0;
   width: 100%;
   white-space: nowrap;
   line-height: 60px;
-}
-
-.bg{
-  width: 50%;
-  height: auto;
 }
 
 .error{
@@ -80,4 +76,22 @@ label{
 .name{
   float: left;
   margin-right: 10px;
+}
+
+.splash{
+  width: 70%;
+  height: auto;
+}
+
+.row {
+  display: flex;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
+.splash-text {
+  flex: right;
 }
