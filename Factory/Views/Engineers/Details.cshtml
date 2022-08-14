@@ -27,11 +27,6 @@
         @foreach(var join in Model.JoinEngineerMachine)
           {
             <li>@join.Machine.Model</li>
-            @using (Html.BeginForm("DeleteMachine", "Engineers"))
-            {
-              @Html.Hidden("joinId", @join.EngineerMachineId)
-              <input type="submit" value="Delete"/>
-            }
           }
       </td>
       <td>

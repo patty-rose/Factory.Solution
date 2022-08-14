@@ -13,12 +13,19 @@
   @Html.HiddenFor(model => model.MachineId)
 
   @Html.LabelFor(model => model.Model)
-  @Html.EditorFor(model => model.Model)
+  @Html.EditorFor(model => model.Model)<br>
 
-  @Html.Label("Select Engineer")
-  @Html.DropDownList("EngineerId")
+  @Html.Label("Assigned engineers:")
+  @Html.ActionLink("Assign new engineers", "AddEngineer", new { id = Model.MachineId })<br>
 
+  @foreach(var join in Model.JoinEngineerMachine)
+  {
+    <h6 class="name">@join.Engineer.Name</h6>
+    @using (Html.BeginForm("DeleteEngineer", "Machines"))
+    {
+      @Html.Hidden("joinId", @join.EngineerMachineId)
+      <input type="submit" value="Remove"/>
+    }<br>
+  }
   <input type="submit" value="Save" />
 }
-<hr />
-<p>@Html.ActionLink("Back to list", "Index")</p>

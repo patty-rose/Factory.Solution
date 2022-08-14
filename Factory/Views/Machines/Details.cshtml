@@ -27,18 +27,6 @@
         @foreach(var join in Model.JoinEngineerMachine)
           {
             <li>@join.Engineer.Name</li>
-            @using (Html.BeginForm("DeleteEngineer", "Machines"))
-            {
-              @Html.Hidden("joinId", @join.EngineerMachineId)
-              <input type="submit" value="Delete"/>
-            }
-            @* @using (Html.BeginForm("EditEngineers", "Machines", FormMethod.Post, new { @class = "checkbox" }))
-            {
-              @Html.HiddenFor(modelMachine => machine.MachineId)
-              @Html.HiddenFor(modelMachine => machine.Model)
-
-              @Html.CheckBoxFor(modelMachine => machine.IsComplete)
-            } *@
           }
       </td>
       <td>

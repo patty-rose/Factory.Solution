@@ -69,3 +69,12 @@ body {
 .error{
   color: red;
 }
+
+label{
+  margin: 10px;
+}
+
+.name{
+  float: left;
+  margin-right: 10px;
+}
