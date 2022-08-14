@@ -1,13 +1,8 @@
 @{
   Layout = "_Layout";
 }
-
 @model Factory.Models.Machine
-
-<h2>Edit</h2>
-
-<h4>Edit this Machine: @Html.DisplayFor(model => model.Model)</h4>
-
+<h1>Edit Machine</h1>
 @using (Html.BeginForm())
 {
   @Html.HiddenFor(model => model.MachineId)
@@ -17,7 +12,6 @@
 
   @Html.Label("Assigned engineers:")
   @Html.ActionLink("Assign new engineers", "AddEngineer", new { id = Model.MachineId })<br>
-
   @foreach(var join in Model.JoinEngineerMachine)
   {
     <h6 class="name">@join.Engineer.Name</h6>

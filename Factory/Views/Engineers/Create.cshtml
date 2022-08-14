@@ -1,11 +1,9 @@
 @{
   Layout = "_Layout";
 }
-
 @using System.Collections.Generic;
 @using Factory.Models;
 @model Factory.Models.Engineer
-
 <h4>Add a new engineer</h4>
 @using (Html.BeginForm())
 {
@@ -17,22 +15,18 @@
       counter++;
       break;
     }
-
   @if(counter > 0){
-    @Html.Label("Select 1 Machine Specialty (select more later)")
+    @Html.Label("Select 1 Machine Specialty (select more later):")
     @Html.DropDownList("MachineId")
   }
   else
   {
     <p>No machines have been added yet. You will need to add machines to assign machine speacializations.</p>
   }
-  
   if(ViewBag.Duplicate == 1)
   {
     <h5 class="error">The entry you submitted already exists. Try again with a unique entry.</h5>
   }
-
+  <br>
   <input type="submit" value="Add new Engineer"/>
 }
-<hr />
-<p>@Html.ActionLink("Show all Engineers", "Index")</p>
