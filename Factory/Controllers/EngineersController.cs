@@ -32,16 +32,28 @@ namespace Factory.Controllers
     [HttpPost]
     public ActionResult Create(Engineer engineer, int MachineId)
     {
-      _db.Engineers.Add(engineer);
-      _db.SaveChanges();
-      if (MachineId !=0)
+      var dupe = _db.Engineers.Where(a => a.Name == engineer.Name).SingleOrDefault();
+      if(dupe == null)
       {
-        _db.EngineerMachine.Add(new EngineerMachine() {
-          MachineId = MachineId, EngineerId = engineer.EngineerId
-        });
+        _db.Engineers.Add(engineer);
         _db.SaveChanges();
+        if (MachineId !=0)
+        {
+          _db.EngineerMachine.Add(new EngineerMachine() {
+            EngineerId = engineer.EngineerId, MachineId = MachineId
+          });
+          _db.SaveChanges();
+        }
+        return RedirectToAction("Index");
       }
-      return RedirectToAction("Index");
+      else
+      {
+        ViewBag.MachineId = new SelectList(_db.Machines, "MachineId", "Model");
+
+        ViewBag.Duplicate = 1;
+        
+        return View();
+      }
     }
 
     public ActionResult Details(int id)
@@ -76,6 +88,7 @@ namespace Factory.Controllers
     public ActionResult AddMachine(int id)
     { 
       var thisEngineer = _db.Engineers.FirstOrDefault(engineer => engineer.EngineerId == id);
+
       ViewBag.MachineId = new SelectList(_db.Machines, "MachineId", "Model");
       return View(thisEngineer);
     }
@@ -83,12 +96,20 @@ namespace Factory.Controllers
     [HttpPost]
     public ActionResult AddMachine(Engineer engineer, int MachineId)
     {
-      if (MachineId != 0)
+      var dupe = _db.EngineerMachine.Where(a => a.MachineId == MachineId && a.EngineerId == engineer.EngineerId).SingleOrDefault();
+      
+      if(dupe == null && MachineId != 0)
       {
         _db.EngineerMachine.Add(new EngineerMachine() { MachineId = MachineId, EngineerId = engineer.EngineerId });
         _db.SaveChanges();
+        return RedirectToAction("Index");
       }
-      return RedirectToAction("Index");
+      else
+      {
+        ViewBag.Duplicate = 1;
+        ViewBag.MachineId = new SelectList(_db.Machines, "MachineId", "Model");
+        return View(engineer);
+      }
     }
 
 

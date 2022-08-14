@@ -15,16 +15,10 @@
     @Html.Label("Select Engineer")
     @Html.DropDownList("EngineerId")
 
-    <div class="container">
-      <div class="row">
-        <div class="col-md-2">
-          Fruits:
-          <select id="Engineers" name="Engineers" asp-items="ViewBag.EngineerId" multiple
-          class="form-control" size="5"></select>
-          <br />
-        </div>
-      </div>
-    </div>
+    if(ViewBag.Duplicate == 1)
+    {
+      <h5 class="error">The entry you submitted already exists. Try again with a unique entry.</h5>
+    }
 
     <input type="submit" value="Save" />
 }

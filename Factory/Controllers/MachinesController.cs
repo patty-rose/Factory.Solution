@@ -31,16 +31,28 @@ namespace Factory.Controllers
     [HttpPost]
     public ActionResult Create(Machine machine, int EngineerId)
     {
-      _db.Machines.Add(machine);
-      _db.SaveChanges();
-      if (EngineerId !=0)
+      var dupe = _db.Machines.Where(a => a.Model == machine.Model).SingleOrDefault();
+      if(dupe == null)
       {
-        _db.EngineerMachine.Add(new EngineerMachine() {
-          EngineerId = EngineerId, MachineId = machine.MachineId
-        });
+        _db.Machines.Add(machine);
         _db.SaveChanges();
+        if (EngineerId !=0)
+        {
+          _db.EngineerMachine.Add(new EngineerMachine() {
+            EngineerId = EngineerId, MachineId = machine.MachineId
+          });
+          _db.SaveChanges();
+        }
+        return RedirectToAction("Index");
       }
-      return RedirectToAction("Index");
+      else
+      {
+        ViewBag.EngineerId = new SelectList(_db.Engineers, "EngineerId", "Name");
+
+        ViewBag.Duplicate = 1;
+
+        return View();
+      }
     }
 
     public ActionResult Details(int id)
@@ -82,12 +94,20 @@ namespace Factory.Controllers
     [HttpPost]
     public ActionResult AddEngineer(Machine machine, int EngineerId)
     {
-      if (EngineerId != 0)
+      var dupe = _db.EngineerMachine.Where(a => a.MachineId == machine.MachineId && a.EngineerId == EngineerId).SingleOrDefault();
+      
+      if(dupe == null && EngineerId != 0)
       {
         _db.EngineerMachine.Add(new EngineerMachine() { MachineId = machine.MachineId, EngineerId = EngineerId });
         _db.SaveChanges();
+        return RedirectToAction("Index");
       }
-      return RedirectToAction("Index");
+      else
+      {
+        ViewBag.Duplicate = 1;
+        ViewBag.EngineerId = new SelectList(_db.Engineers, "EngineerId", "Name");
+        return View(machine);
+      }
     }
 
     public ActionResult Delete(int id)

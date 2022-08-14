@@ -27,6 +27,10 @@
     <p>No machines have been added yet. You will need to add machines to assign machine speacializations.</p>
   }
   
+  if(ViewBag.Duplicate == 1)
+  {
+    <h5 class="error">The entry you submitted already exists. Try again with a unique entry.</h5>
+  }
 
   <input type="submit" value="Add new Engineer"/>
 }
